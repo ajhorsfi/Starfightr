@@ -1,11 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Game\Scripts\GameController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Game\Scripts\LifeManager.cs">
     <Files>
       <File FileName="Assets\Game\Scripts\PlayerControl.cs" Line="125" Column="38" />
-      <File FileName="Assets\Game\Scripts\GameController.cs" Line="74" Column="30" />
+      <File FileName="Assets\Game\Scripts\GameController.cs" Line="81" Column="48" />
       <File FileName="Assets\Game\Scripts\KillPlayer.cs" Line="10" Column="55" />
-      <File FileName="Assets\Game\Scripts\LifeManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Game\Scripts\LifeManager.cs" Line="24" Column="34" />
+      <File FileName="Assets\Game\Scripts\Destruction.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

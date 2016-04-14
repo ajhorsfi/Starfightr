@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
 	
 	private PlayerControl playerControl;
 	private LifeManager lifeManager;
+	public float respawnSlowDuration = 1.0f;
 	
 	public bool isPause = false;
 	
@@ -70,17 +71,20 @@ public class GameController : MonoBehaviour {
 		Application.LoadLevel(Application.loadedLevelName);
 	}
 	public void Respawn() {
-		playerControl.gameObject.SetActive(false);
-		lifeManager.SubtractLife();
-		playerControl.transform.position = new Vector2(-1.27f, 0.0f);
-		Time.timeScale = .5f;
-		StartCoroutine(DeathWait(1.0f));
 		
+		if (!lifeManager.isSafe()){
+			playerControl.gameObject.SetActive(false);
+			lifeManager.SubtractLife();
+			playerControl.transform.position = new Vector2(-1.27f, 0.0f);
+			Time.timeScale = .5f;
+			playerControl.gameObject.SetActive(true);
+			StartCoroutine(DeathWait(respawnSlowDuration));
+		}
 		
 	}
 	IEnumerator DeathWait(float delay){
 		yield return new WaitForSeconds(delay);
-		playerControl.gameObject.SetActive(true);
+		
 		Time.timeScale = 1;
 	}
 	public void GameOver() {
