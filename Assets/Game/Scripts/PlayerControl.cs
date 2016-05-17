@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerControl : MonoBehaviour {
 
+	private static PlayerControl playerInstance;
 	private GameController gameManager;
 	private LifeManager lifeManager;
 	private GameObject[] eFlares;
@@ -45,6 +46,16 @@ public class PlayerControl : MonoBehaviour {
 		}
 	}
 	void Awake () {
+	
+		if(playerInstance == null)
+		{
+			playerInstance = this;
+			DontDestroyOnLoad(gameObject);
+		}
+		else
+		{
+			DestroyImmediate(gameObject);
+		}
 		playerLives = 3;
 		playerWeapon = 1;
 		wasForward = false;
@@ -74,7 +85,9 @@ public class PlayerControl : MonoBehaviour {
 		playerMovement = new Vector2 (x * playerSpeed.x, y * playerSpeed.y);
 		rigidbody2D.velocity = playerMovement;
 	}
-	
+	public void setGameManager(GameController instance) {
+		gameManager = instance;
+	}
 	public void UpgradeWeapon() {
 		playerWeapon++;
 	}

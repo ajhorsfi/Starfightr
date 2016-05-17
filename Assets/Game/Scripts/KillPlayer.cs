@@ -3,11 +3,11 @@ using System.Collections;
 
 public class KillPlayer : MonoBehaviour {
 	
-	private GameController gameController;
+	private GameController gameManager;
 	public Transform explosionPrefab;
 	// Use this for initialization
 	void Start () {
-		gameController = FindObjectOfType<GameController>();
+		gameManager = FindObjectOfType<GameController>();
 	}
 	
 	// Update is called once per frame
@@ -16,8 +16,9 @@ public class KillPlayer : MonoBehaviour {
 	}
 	void OnCollisionEnter2D (Collision2D collision) {
 		if (collision.gameObject.tag =="Player") {
-			gameController.Respawn();
-			Instantiate (explosionPrefab, transform.position, transform.rotation);
+			//TODO: Make a killPayer Function in GameController? call Respawn from there.
+			Instantiate (explosionPrefab, collision.gameObject.transform.position, collision.gameObject.transform.rotation);
+			gameManager.Respawn();
 		}
 	}
 }
