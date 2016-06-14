@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour {
 	private IStateBase activeState;
 	private static GameController gameControllerInstance;
 	private GameObject[] pauseObjects;
-	private GameObject[] gameOverObjects;
+	private GameObject gameOverObject;
 	
 	private PlayerControl playerControl;
 	private LifeManager lifeManager;
@@ -43,7 +43,8 @@ public class GameController : MonoBehaviour {
 		pauseObjects = GameObject.FindGameObjectsWithTag("ShowOnPause");
 		hidePaused();
 		//Game Over Stuff
-		gameOverObjects = GameObject.FindGameObjectsWithTag("ShowOnGameOver");
+		gameOverObject = GameObject.FindGameObjectWithTag("ShowOnGameOver");
+		hideGameOver();
 	}
 	
 	// Update is called once per frame
@@ -54,6 +55,10 @@ public class GameController : MonoBehaviour {
 		}			
 		if (Input.GetKeyUp(KeyCode.Escape)) {
 			PauseControl();
+		}
+		if (isGameOver)
+		{
+			Time.timeScale = 0;
 		}
 	}
 	
@@ -80,14 +85,13 @@ public class GameController : MonoBehaviour {
 	}
 	public void Respawn() {
 		//TODO: hash out the respawn so its fluent
-		if (!lifeManager.isSafe()){
-			playerControl.gameObject.SetActive(false);
-			lifeManager.SubtractLife();
-			playerControl.transform.position = new Vector2(-1.27f, 0.0f);
-			Time.timeScale = .5f;
-			StartCoroutine(DeathWait(respawnSlowDuration));
+		
+		playerControl.gameObject.SetActive(false);
+		lifeManager.SubtractLife();
+		playerControl.transform.position = new Vector2(-1.27f, 0.0f);
+		Time.timeScale = .5f;
+		StartCoroutine(DeathWait(respawnSlowDuration));
 			
-		}
 		
 	}
 	IEnumerator DeathWait(float delay){
@@ -99,9 +103,13 @@ public class GameController : MonoBehaviour {
 	}
 	public void GameOver() {
 		isGameOver = true;
-		Time.timeScale = 0;
-		Debug.Log ("Game Over! "+ Time.timeScale );
-		//TODO: finish this so it actually works
+		showGameOver();
+	}
+	void hideGameOver() {
+		gameOverObject.SetActive(false);
+	}
+	void showGameOver() {
+		gameOverObject.SetActive (true);
 	}
 	public void PauseControl()
 	{
